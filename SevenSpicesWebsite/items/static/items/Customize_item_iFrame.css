@@ -1,0 +1,80 @@
+/* This CSS file is for the modal and iFrame for customizing an item when selcted */
+
+
+/* -----------------NUMBER INPUT---------------------- */
+* {
+  box-sizing: border-box;
+  font-family: Arial;
+}
+
+.topping-label-number-input{
+  width: 75%;
+  vertical-align: baseline;
+
+}
+
+.topping-label-input{
+  width: 83%;
+  vertical-align: baseline;
+
+}
+
+.number-input {
+  height: 25px;
+}
+
+.change {
+
+  cursor: pointer;
+  /* display: inline-block; */
+  padding: 7px;
+  font-size: 20px;
+  text-align: center;
+  vertical-align: middle;
+  height: 30px;
+  width: 30px;
+  user-select: none;
+}
+
+.input-box {
+  border: 1px solid #ddd;
+  padding: 10px;
+  font-size: 15px;
+  text-align: center;
+  height: 28px;
+  width: 30px;
+}
+
+  /* --------------------------------------- */
+
+.category-header{
+  margin-top: 5%;
+  margin-bottom: 0px;
+}
+
+.number-input-item-quantity{
+  margin: auto;
+  margin-bottom: 3%;
+}
+
+.header-quantity{
+  margin-top: 5%;
+}
+
+.category-description{
+  text-align: center;
+  margin-bottom: 2%;
+}
+
+.quantity-description{
+  text-align: center;
+}
+
+.list-customize{
+  width: 100%;
+}
+
+.edit-item{
+  padding: 0px;
+  border-radius: 0px;
+}

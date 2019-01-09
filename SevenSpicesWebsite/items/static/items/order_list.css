@@ -1,0 +1,26 @@
+
+
+header {
+  position: relative;
+  height: 300px;
+  background-image: linear-gradient(#ff9d2f, #ff6126);
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 100%,
+    0 calc(100% - 5vw)
+  );
+  /* change the calc height to a percentage height to get alternate responsive behavior*/
+}
+
+h1 {
+  margin: 0;
+  padding: 100px 0;
+  font: 44px "Arial";
+  color: white;
+  text-align: center;
+}
+
+section {
+  margin-top: -5vw;
+}

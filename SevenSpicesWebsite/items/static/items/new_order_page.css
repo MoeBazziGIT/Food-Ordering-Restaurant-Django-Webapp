@@ -1,0 +1,89 @@
+
+.new-order-container{
+  padding-right: 0;
+}
+
+#customize-item-modal{
+  padding:0;
+}
+
+#subtotal-header{
+  margin-top: 20px;
+  margin-bottom: 10px
+}
+
+.content-section{
+  padding:0;
+}
+
+#checkout-button{
+  margin: auto;
+  width: 75%;
+}
+
+.item-category-select{
+  text-align: center;
+}
+
+.boxy{
+  border: 3px solid gray;
+}
+
+.list-group-item-hover:hover{
+  cursor: pointer;
+  color: black;
+}
+
+.edit-item:hover{
+  cursor: pointer;
+}
+
+/* .order-item-display:hover{
+  cursor: pointer;
+} */
+
+img {
+  border: 1px solid #ddd;
+  /* border-radius: 4px; */
+  /* padding: 5px; */
+}
+
+.polaroid:hover {
+  cursor: pointer;
+  box-shadow: 0 0 10px 2px rgba(0, 140, 186, 0.5);
+}
+
+.polaroid {
+  width: 80%;
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin-bottom: 25px;
+}
+
+.polaroid-container {
+  text-align: center;
+  padding: 10px 20px;
+  color: #407496;
+  font-size: 20px;
+}
+
+.topleft {
+  position: absolute;
+  top: 7%;
+  margin-left: 5%;
+}
+
+.close-modal{
+  position: absolute;
+  top: 3%;
+  margin-left: 3%;
+}
+
+.customize-item-text-image{
+
+}
+
+.item-price{
+  font-size: 18px;
+  color: green;
+}

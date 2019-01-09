@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<style media="screen">
+  body{
+    margin-top:0;
+  }
+</style>
+
+  <h1 align='center' >Order Details</h1>
+  <div class="jumbotron">
+    <h3>Type: {{order.type}}</h3>
+    <h3>Total: ${{order.total}}</h3>
+    <h3>Ordered at: {{order.date_ordered}}</h3>
+  </div>
+  <div class="jumbotron">
+    <h3>Items:</h3>
+    {% for order_item in order.order_items.all %}
+      <p>{{order_item}} - ${{order_item.item.price}}</p>
+    {% endfor %}
+  </div>
+  {% if order.special_instructions %}
+    <div class="jumbotron">
+      <h3>Special instructions:</h3>
+      <p>{{order.special_instructions}}</p>
+    </div>
+  {% endif %}
+  <a class="btn btn-primary" href="{% url 'orders:new_order' %}">Order Again</a>
+  <p></p> <!-- just for space under button. *change later* -->
+
+{% endblock %}

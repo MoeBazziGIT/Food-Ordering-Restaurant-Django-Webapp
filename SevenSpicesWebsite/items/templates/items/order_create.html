@@ -1,0 +1,312 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'items/Customize_item_iFrame.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'items/new_order_page.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'items/main.css' %}">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+<div class="new-order-container container" style="padding-right:0;margin-top:0;margin-left:0;margin-right:0;">
+  <div class="new-order-header" style="">
+    <div class="row" style="background-image:linear-gradient(to left, rgb(114,184,95,1), rgb(114,184,95,.3));"> <!-- rgb(226,78,66,1) -->
+      <div class="col-md-2" style="background-color:">
+        <!-- #11bec4 -->
+        <!--  -->
+      </div>
+
+      <div class="col-md-10" style="height:100px;border-right:1px solid #818182;px;border-bottom:1px solid #818182;background-color:;border-bottom-right-radius:8px;box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.2);"> <!-- #11bec4 -->
+        <div class="row">
+          <div class="col-md-2">
+
+          </div>
+          <!-- <div class="col-md-6 new-order-info-header" style="background-color:white;border-left:1px solid #818182;padding-left:125px;padding-right:125px;"> -->
+            <!-- <h1 align='center' style="padding-top:25px;padding-bottom:25px;border:1px solid #818182;vertical-align:baseline;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);border-radius:4px;">Click on item to customize and add to order</h1> -->
+          <!-- </div> -->
+          <div class="col-md-8" style="padding-top:70px;">
+            <div class="">
+              <h1 align='center' style="background-image:linear-gradient(#ff9d2f, #ff6126);padding-top:25px;padding-bottom:25px;border:1px solid #818182;vertical-align:baseline;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);border-radius:12px;color:white;text-shadow:2px 2px 4px rgba(0, 0, 0, 0.75);">customize and add to order</h1>
+            </div>
+          </div>
+          <div class="col-md-2">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2" style="height:100px;border-right:1px solid gray;border-bottom:1px solid gray;border-bottom-right-radius:8px;box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2);background-image:linear-gradient(to left, rgb(114,184,95,.43), rgb(114,184,95,.3));">
+
+    </div>
+
+    <div class="col-md-2">
+
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="col-md-2 item-category-select" style="padding:0;">
+
+      <ul class="list-group list-group-flush category-select-ul" style="padding-left:15px;padding-right:15px;">
+
+        <!-- <div class="" style="background-color:#E24E42;height:15px;">
+
+        </div> -->
+
+        <li class="list-group-item list-group-item-light list-group-item-hover onclick-highlight" style="color:#407496;background-color:white;border-right:1px solid #818182;border-left:1px solid #818182;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2)" onclick="openItems('All'), highlightCategoryText(this)">
+          <i class="category-side-display-element">All</i>
+        </li>
+
+        {% for category in item_categories_side_nav %}
+          <li class="list-group-item list-group-item-hover onclick-highlight" style="color:#aeaeae;border-right:1px solid #818182;border-left:1px solid #818182;box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2)" onclick="openItems('{{category}}'), highlightCategoryText(this)">
+            {{category}}
+          </li>
+        {% endfor %}
+
+        <div class="" style="border-bottom:2px solid #818182;border-radius:16px;">
+
+        </div>
+
+      </ul>
+
+    </div>
+
+    <div class="col-md-10 item-select" style="text-align:center;padding:2%;padding-top:0;">
+      {% for category in item_categories %}
+        <div id="{{category}}" class="items" style="margin-bottom:35px;">
+          <div class="category-header-name" style="text-align:left;">
+            <h3 class="category-display" style="color:#aeaeae;margin-bottom:25px;">{{category}}</h3>
+          </div>
+
+          <div class="row">
+          {% for item in item_list %}
+            {% if item.category == category %}
+              <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
+                <button id="customize-item-modal" style="text-decoration:none;width:350px;height:285px;" type="button" class="btn btn-link add-item" data-toggle="modal" data-target="#exampleModalCenter" value="{{item.id}} {{item.image.url}}" name="{{item}}">
+                {% if item.image %}
+                  <div class="polaroid" style="border-radius:8px;">
+                    <img src="{{item.image.url}}" alt="" style="width:100%;height:200px;border-top-right-radius:8px;border-top-left-radius:8px;">
+                    <div class="topleft item-price">${{item.price}}</div>
+                    <div class="polaroid-container" style="text-shadow:1px 2px rgba(0, 0, 0, 0.2);">
+                        {{item}}
+                    </div>
+                  </div>
+                {% endif %}
+                </button>
+              </div>
+            {% endif %}
+          {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <!-- <div class="col-md-2" style="border-left:1px solid black;">
+    </div> -->
+
+  </div>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <img class="model-header-item-image" src="" alt="" style="width:100%;border-top-right-radius:4px;border-top-left-radius:4px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);">
+      <div class="modal-image-header" style="width:100%;height:65px;position:absolute;top:0;background-image:linear-gradient(rgb(85,85,85,.6), rgb(85,85,85,0));">
+        <div class="customize-item-text-image" style="padding-left:4%;">
+          <h3 class="modal-title" id="exampleModalCenterTitle" style="padding-top:10px;color:white;font-size:23px;text-shadow:2px 2px 4px rgba(0, 0, 0, 0.75);">Customize Item</h3>
+        </div>
+        <div class="close-modal" style="right:5%;">
+          <button type="button" class="close" style="padding-top:10px;font-size:33px;color:white;text-shadow:2px 2px 4px rgba(0, 0, 0, 0.75);" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+      <!-- <div class="modal-header">
+        hello
+      </div> -->
+      <div class="modal-body">
+        <iframe name="add-item-toppings-iframe" id="add-item-toppings-iframe"
+        src=""
+        width="465" height="365" frameborder="0">
+        </iframe>
+      </div>
+      <div class="modal-footer" style="box-shadow: 10px 4px 8px 10px rgba(0, 0, 0, 0.2);">
+        <input class="btn btn-primary btn-xl btn-block add-to-order-button"
+        type="submit"
+        value="ADD TO ORDER"
+        style="background-color:#e24e42;border:0;">
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock  %}
+
+{% block sidebar_content %}
+
+
+  <!-- Side Bar Current Order -->
+  <form class="Current-Order-Form" action="{% url 'orders:checkout' %}" method="POST">
+    {% csrf_token %}
+    <div class="checkout-header">
+      <h5 id="subtotal-header" align='center'>Subtotal: ${{current_order.total}}</h5>
+      <input id="checkout-button" class="btn btn-primary btn-xl btn-block mb-3" style="background-image:linear-gradient(#ff9d2f, #ff6126);border:0;" type="submit" value="CHECKOUT">
+      <h6 align='center'>Click on item to edit</h6>
+    </div>
+
+    <p class='text-muted'>
+      <ul class="list-group list-group-flush">
+        {% for order_item in current_order.order_items.all %}
+          <li class="list-group-item list-group-item-light order-item-display">
+            <!-- Delete order item -->
+            <a class="close" href="{% url 'orders:delete_item' pk=order_item.id %}">
+              <span aria-hidden="true">&times;</span>
+            </a>
+
+            <!-- Order Item display. Click on order item to edit -->
+            <div class="">
+              <div class="order-item-edit-button">
+                <button id="customize-item-modal" style="text-decoration:none;color:#407496" type="button" class="btn btn-link edit-item" data-toggle="modal" data-target="#exampleModalCenter" value="{{order_item.id}} {{order_item.item.image.url}}" name="{{order_item}}">
+                  {{order_item}}
+                </button>
+              </div>
+              <div class="order-item-price-display">
+                <p><strong>${{order_item.price}}</strong></p>
+              </div>
+            </div>
+
+            {% for category in order_item.get_all_topping_categories %}
+            <small>
+              <!-- <ul> -->
+                <!-- <li><strong>{{category}}</strong></li> -->
+                <ul class="topping-display-list" style="padding-left:20px;">
+                  {% for topping in order_item.toppings.all %}
+                    {% if topping.category == category %}
+                      <li>{{topping}} {% if topping.price > 0 %} <strong>${{topping.price}} {% endif %}</strong></li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              <!-- </ul> -->
+            </small>
+            {% endfor %}
+
+          </li>
+
+        {% empty %}
+        <div class="container">
+          <ul class="list-group" >
+            <li class="list-group-item list-group-item-light empty-cart-display">
+              <h4 align='center' style="margin-bottom: 0px;">Your Cart Is Empty :(</h4>
+            </li>
+          </ul>
+        </div>
+        {% endfor %}
+      </ul>
+    </p>
+  </form>
+
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+<!-- Modal Toggle Script -->
+<script type="text/javascript">
+
+  /*
+  This script will toggle the modal which includes the iframe for customizing items toppings
+  when an item has been selected to add to order or to edit the item that has already
+  been added to the order
+  */
+
+  var addButtons = $("[id=customize-item-modal]")
+  var iFrame = document.getElementById("add-item-toppings-iframe");
+  var itemImage = document.querySelector('.model-header-item-image');
+  var modalTitle = document.getElementById("exampleModalCenterTitle");
+
+  addButtons.click(function(){
+    // the name attribute is the item
+    modalTitle.textContent = `Customize your ${this.name}`
+
+    itemImage.setAttribute('src', this.value.split(" ")[1]);
+
+    button = document.querySelector('.add-to-order-button');
+
+    if (this.getAttribute('class') == "btn btn-link add-item"){
+      type = 'add'
+      button.setAttribute('value', 'ADD TO ORDER')
+    }
+    else{
+      type = 'edit'
+      button.setAttribute('value', 'SAVE CHANGES')
+    }
+
+    // the value attribute is the item.id
+    iFrame.setAttribute('src', `/orders/customize/${this.value.split(" ")[0]}/${type}/`)
+
+  })
+
+</script>
+
+
+<script type="text/javascript">
+
+  /*
+  This script will: once clicked on a category in the left side nav menu, items of that
+  category will be displayed and the text of that category on the side nav menu will
+  be highlighted until a new category is selected
+  */
+
+  function openItems(category){
+    var i;
+    var x = document.getElementsByClassName("items");
+
+    if(category == 'All'){
+      var display = 'block'
+    }
+    else {
+      var display = 'none'
+    }
+    for (i = 0; i < x.length; i++){
+      x[i].style.display = display;
+    }
+
+    if(category != 'All')
+      document.getElementById(category).style.display = "block";
+
+  }
+
+  function highlightCategoryText(element){
+
+    all_elements = document.querySelectorAll(".list-group-item-hover");
+
+    for(var i = 0; i < all_elements.length; i++){
+      all_elements[i].style.color = '#aeaeae'; // light gray
+      // all_elements[i].style.boxShadow = ''; // light gray
+    }
+
+    element.style.color = '#407496'; //highlighted blue
+    // element.style.boxShadow =  "0 0 10px 2px rgba(0, 140, 186, 0.5)";
+  }
+
+</script>
+
+<script type="text/javascript">
+
+  button = document.querySelector('.add-to-order-button');
+
+  button.addEventListener('click', function(){
+    window.frames['add-item-toppings-iframe'].document.querySelector('.Add-Toppings-Form').submit();
+  })
+
+</script>
+
+{% endblock %}

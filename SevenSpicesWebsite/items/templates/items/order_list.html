@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'items/order_list.css' %}">
+
+
+<style media="screen">
+  body{
+    margin-top:0;
+  }
+</style>
+
+<header>
+  <div class="header__bg"></div>
+  <h1 style="font-weight:700;">My Orders</h1>
+</header>
+
+<section>
+  <div class="order-list-content-section" style="  background-image: linear-gradient(to right, rgb(114,184,95,1), rgb(114,184,95,.3));margin:5%;margin-top:0;box-shadow: 0 4px 8px 2px rgba(0, 0, 0, 0.5);">
+    <div class="row" style="padding-top:5%;">
+      <div class="col-md-2">
+
+      </div>
+
+      <div class="col-md-8">
+        {% for order in my_orders %}
+          <div class="order-display-box" style="margin:5%;padding:2%;background-image:linear-gradient(to right, white, rgb(221,221,221,1));border-radius:4px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);">
+            <p>Order id: {{order.ref_code}}</p>
+            <p>Ordered Date: {{order.date_ordered}}</p>
+            <p>Order Type: {{order.type}}</p>
+            <p>Order Total: ${{order.total}}</p>
+            <a class="btn btn-primary" href="{% url 'orders:new_order' %}">Order Again</a>
+            <a class="btn btn-primary" href="{% url 'orders:order_detail' pk=order.id%}">Details</a>
+          </div>
+
+          <div class="order-display-box" style="margin:5%;padding:2%;background-image:linear-gradient(to right, white, rgb(221,221,221,1));border-radius:4px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);">
+            <p>Order id: {{order.ref_code}}</p>
+            <p>Ordered Date: {{order.date_ordered}}</p>
+            <p>Order Type: {{order.type}}</p>
+            <p>Order Total: ${{order.total}}</p>
+            <a class="btn btn-primary" href="{% url 'orders:new_order' %}">Order Again</a>
+            <a class="btn btn-primary" href="{% url 'orders:order_detail' pk=order.id%}">Details</a>
+          </div>
+
+          <div class="order-display-box" style="margin:5%;padding:2%;background-image:linear-gradient(to right, white, rgb(221,221,221,1));border-radius:4px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);">
+            <p>Order id: {{order.ref_code}}</p>
+            <p>Ordered Date: {{order.date_ordered}}</p>
+            <p>Order Type: {{order.type}}</p>
+            <p>Order Total: ${{order.total}}</p>
+            <a class="btn btn-primary" href="{% url 'orders:new_order' %}">Order Again</a>
+            <a class="btn btn-primary" href="{% url 'orders:order_detail' pk=order.id%}">Details</a>
+          </div>
+        {% endfor %}
+        </div>
+      </div>
+    </div>
+</section>
+
+<!-- <header>
+  <h1>Header Content</h1>
+</header>
+
+<section>
+  <h1>Section Content</h1>
+</section> -->
+
+
+
+
+{% endblock %}

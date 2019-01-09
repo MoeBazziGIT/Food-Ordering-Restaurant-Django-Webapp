@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title></title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <link rel="stylesheet" type="text/css" href="{% static 'items/main.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'items/Customize_item_iFrame.css' %}">
+
+</head>
+
+<body style="margin-top:10px;background-color:white;">
+  <div class="container">
+    <!-- If type is add then we send in the menu item to make new instance of order item -->
+    {% if type == 'add' %}
+      <form class="Add-Toppings-Form" method="POST" action="{% url 'orders:add_to_order' pk=item.id type=type order_item_pk=0 %}" target="_top">
+    <!-- If type is edit then we send in the order item that has already been instantaited -->
+    {% elif type == 'edit' %}
+      <form class="Add-Toppings-Form" method="POST" action="{% url 'orders:add_to_order' pk=order_item.id type=type order_item_pk=0 %}" target="_top">
+    {% endif %}
+        {% csrf_token %}
+        {% for category in topping_categories %}
+          <h3 class="category-header" align='center' {% if category.description %}{% else %} style="margin-bottom:5%;" {% endif %}>{{category}}</h3>
+          <small class="category-description">{{category.description}}</small>
+          <ul class="list-group list-group-flush list-customize">
+          {% for topping in toppings %}
+            {% if topping.category == category %}
+                <li class="list-group-item list-customize-item">
+                {% if category.type == 'number' %}
+                  <div class="number-input">
+                    <label class="topping-label-number-input" for="topping-{{category.type}}-input">{{topping}} {% if topping.price %}<strong>- add ${{topping.price}}</strong>{% endif %} </label>
+                    <span class="change minus">-</span>
+                      <input type="text" id="topping-{{category.type}}-input" name="{{category}}" class="input-box" min ="0" max="4" placeholder="0">
+                    <span class="change plus">+</span>
+                  </div>
+                {% else %}
+                  <div class="number-input">
+                    <label class="topping-label-input" for="topping-{{category.type}}-input">{{topping}} {% if topping.price %} <strong>- add ${{topping.price}}</strong> {% endif %} </label>
+                    <input type="{{category.type}}" id="topping-{{category.type}}-input" name="{{category}}" value="{{topping}}" {% if category.type == 'number' %} min="0" max={{category.amount_allowed}} {% endif %}><br>
+                  </div>
+                {% endif %}
+                </li>
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+        </ul>
+
+        <!-- Enter Quantity -->
+        <h3 class="header-quantity" align='center'>Quantity</h3>
+        <small class="quantity-description" >(How many {{item}}'s would you like)</small><br>
+        <!-- <input class="item-quantity-selctor" type="number" name="Item-Quantity" min="1" max="99" value="1"> -->
+        <div class="number-input number-input-item-quantity">
+          <span class="change minus">-</span>
+            <input type="text" name="Item-Quantity" class="input-box" min ="1" max="9" value="1">
+          <span class="change plus">+</span>
+        </div>
+
+      </form>
+
+  </div>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+  $('.change').on('click', function(){
+    var selfObj = $(this);
+    var numberInput = selfObj.closest('.number-input').find('.input-box');
+    var currentValue = numberInput.val().length && !(isNaN(numberInput.val())) ? parseInt(numberInput.val()) : 0;
+    var minVal = numberInput[0].hasAttribute('min') ? numberInput.attr('min') : false;
+    var maxVal = numberInput[0].hasAttribute('max') ? numberInput.attr('max') : false;
+    if(selfObj.hasClass('minus')) {
+        if(minVal) {
+            if(currentValue > parseInt(minVal)) {
+                numberInput.val(currentValue - 1);
+            }
+            else {
+                numberInput.val(currentValue);
+            }
+        }
+        else {
+            numberInput.val(currentValue - 1);
+        }
+    }
+    else if(selfObj.hasClass('plus')) {
+        if(maxVal) {
+            if(currentValue < parseInt(maxVal)) {
+                numberInput.val(currentValue + 1);
+            }
+            else {
+                numberInput.val(currentValue);
+            }
+        }
+        else {
+            numberInput.val(currentValue + 1);
+        }
+    }
+  });
+</script>
+
+</body>
+</html>
+
+
+
+<!-- *NOTES* -->
+
+
+<!-- Place only one label tag inside first if statement -->
+
+<!-- might need to enter the toppings into url call in form action -->

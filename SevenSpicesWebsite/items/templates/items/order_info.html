@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'items/order_list.css' %}">
+
+
+<style media="screen">
+  body{
+    margin-top:0;
+  }
+</style>
+
+<header>
+  <div class="header__bg"></div>
+  <h1 style="font-weight:700;">New Order Info</h1>
+</header>
+
+<section>
+  <div class="order-list-content-section" style="background-image:linear-gradient(to right, rgb(114,184,95,1), rgb(114,184,95,.3));padding-top:7%;margin:5%;margin-top:0;box-shadow: 0 4px 8px 2px rgba(0, 0, 0, 0.5);">
+    <div class="row" style="">
+
+      <div class="col-md-4" style="background-image:linear-gradient(to bottom, white, rgb(221,221,221,1));margin: 5% 0 5% 3%;margin-left:3%;border:1px solid gray;border-radius:4px;">
+        <div class="">
+          <div class="order-info-form" style="padding:10% 5% 10% 5%;">
+
+            <form class="order_info_form" action="{% url 'orders:add_order_info' %}" method="POST">
+              {% csrf_token %}
+              <label for="Street">Street Address:</label>
+              <input id="Street" type="text" style="width:100%;" name="Street-Address" placeholder="1234 Street Name Blvd." required value="" ><br>
+
+              <label for="Apartment">Apartment Number:</label>
+              <input id="Apartment" type="text" style="width:100%;" name="Apartment-Number" placeholder="34" value=""><br>
+
+              <label for="Postal-Code">Postal Code:</label>
+              <input id="Postal-Code" type="text" style="width:100%;" name="Postal-Code" placeholder="N3Z 9H5" required value=""><br>
+
+              <label for="Order-Type-Pickup">Pickup</label>
+              <input id="Order-Type-Pickup" type="radio" name="Order-Type" value="Pickup" required>
+
+              <label for="Order-Type-Delivery">Delivery</label>
+              <input type="radio" name="Order-Type" value="Delivery" required><br>
+
+              <input class="btn btn-success btn-block" type="submit" name="" value="Go">
+            </form>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-7 address-map-display" style="padding: 5% 0 5% 0;">
+        <img src="/media/general_pics/Google-Maps.jpg" style="width:100%;height:100%;padding: 3% 0 3% 0;border:0;" alt="">
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+{% endblock %}

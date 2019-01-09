@@ -1,0 +1,152 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'items/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'items/new_order_page.css' %}">
+
+    {% if title %}
+        <title>Seven Spices - {{ title }}</title>
+    {% else %}
+        <title>Seven Spices eRestaurant</title>
+    {% endif %}
+
+</head>
+<body>
+
+  <!-- LEFT CENTERED NAVBAR ACROSS ENTIRE SITE-->
+  <!-- <div class="row">
+    <div class="col-md-9" style="padding-right:0;">
+      <nav class="navbar"style="background-color:white;height:80px;box-shadow: 4px 4px 4px 0 rgba(0, 0, 0, 0.5);" >
+          <div class="col-md-2" style="">
+            . . .
+          </div>
+          <div class="col-md-9">
+            <div class="navbar-main-content-section">
+              <div class="navbar nav">
+                {% if user.is_authenticated %}
+                  <a class="nav-item nav-link" href="{% url 'orders:order_info' %}">New Order</a>
+                  <a class="nav-item nav-link" href="{% url 'orders:my_orders' %}">My Orders</a>
+                {% else %}
+                  <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                  <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+                {% endif %}
+
+                <a class="navbar-brand" href="{% url 'home' %}">Seven Spices</a>
+
+                {% if user.is_authenticated %}
+                  <a class="nav-item nav-link" href="{% url 'orders:menu_list' %}">View Menu</a>
+                  <a class="nav-item nav-link" href="{% url 'logout_home' %}">Logout</a>
+                {% else %}
+                  <a class="nav-item nav-link" href="{% url 'orders:menu_list' %}">View Menu</a>
+                  <a class="nav-item nav-link" href="{% url 'orders:order_info' %}">New Order</a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-1">
+
+          </div>
+      </nav>
+    </div>
+    <div class="col-md-3" style="background-color:white;height:80px;box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.5);">
+
+    </div>
+  </div> -->
+
+
+  <div class="row">
+    <div class="col-md-9" style="padding-right:0;background-color:white;box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.5);">
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="height:80px;width:100%;position:relative;z-index:inherit;">
+        <div class="col-md-1">
+          ...
+        </div>
+
+        <div class="col-md-10">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav" style="width:100%">
+              {% if user.is_authenticated %}
+                <a class="nav-item nav-link" href="{% url 'orders:order_info' %}" style="color:black;margin:auto;">New Order</a>
+                <a class="nav-item nav-link" href="{% url 'orders:my_orders' %}" style="color:black;margin:auto;">My Orders</a>
+              {% else %}
+                <a class="nav-item nav-link" href="{% url 'login' %}" style="color:black;margin:auto;">Login</a>
+                <a class="nav-item nav-link" href="{% url 'register' %}" style="color:black;margin:auto;">Register</a>
+              {% endif %}
+
+              <a class="navbar-brand" href="{% url 'home' %}" style="color:black;margin:auto;">Seven Spices</a>
+
+              {% if user.is_authenticated %}
+                <a class="nav-item nav-link" href="{% url 'orders:menu_list' %}" style="color:black;margin:auto;">View Menu</a>
+                <a class="nav-item nav-link" href="{% url 'logout_home' %}" style="color:black;margin:auto;">Logout</a>
+              {% else %}
+                <a class="nav-item nav-link" href="{% url 'orders:menu_list' %}" style="color:black;margin:auto;">View Menu</a>
+                <a class="nav-item nav-link" href="{% url 'orders:order_info' %}" style="color:black;margin:auto;">New Order</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+      </nav>
+    </div>
+    <div class="col-md-3" style="background-color:white;box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.5);">
+
+    </div>
+  </div>
+
+
+
+  <main role="main" class="">
+    <div class="row">
+      <div class="col-md-9 col-sm-9" style="padding-right:0;">
+        {% block content %}{% endblock %}
+      </div>
+      <div class="col-md-3 col-sm-3" style="padding-left:0;">
+        <div class="content-section" style="
+            width: 23%;
+            margin-top: 0;
+            position: fixed;
+            overflow-y: scroll;
+            top: 0;
+            bottom: 0;
+            box-shadow: 0 0 10px 1px gray;
+            ">
+            {% if messages %}
+              {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}" style="border-radius:0;margin-top:5px;text-align:center;" >
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% block sidebar_content %}{% endblock %}
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  <script type="text/javascript">
+    // script for fading out messages 1.5s
+
+    // setTimeout(function(){$('.alert').fadeOut();}, 1500);
+    // $(window).click(function(){$('.alert').fadeOut();});
+    // $('.alert').fadeOut(1500);
+
+  </script>
+</body>
+</html>

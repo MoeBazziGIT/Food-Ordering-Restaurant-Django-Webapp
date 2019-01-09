@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style media="screen">
+  body{
+    margin-top:0;
+  }
+</style>
+
+  <!-- DISPLAY MAP OF CUSTOMERS LOCATION -->
+
+<!-- Side Bar Current Order -->
+<div class="body-background" style="width:110%;margin-top:4%;background-color:#efefef;">
+  <div class="row" style="padding-top:2.5%;">
+    <div class="col-md-3">
+
+    </div>
+
+    <div class="col-md-5">
+      <form class="Current-Order-Form" action="." method="POST">
+        {% csrf_token %}
+        <h5>Your Delivery:</h5>
+        <ul>
+          <li> {{ current_order.delivered_to_address }} </li>
+          <li> <!-- REQUESTED DELIVERY TIME --> </li>
+        </ul>
+        <label for="Delivery-Instructions">Delivery Instructions:</label><br>
+        <textarea
+        id="Delivery-Instructions"
+          name="Delivery-Instructions"
+          rows="2" cols="30"
+          placeholder="E.G Use side door, Buzz code: 123"></textarea>
+        <h3>Current Order - Total: ${{current_order.total}}</h3>
+
+        <input class="btn btn-primary btn-xl btn-block" type="submit" value="SELECT A PAYMENT METHOD">
+        <p class='text-muted'>
+          <ul class="list-group">
+            {% for item in current_order.items.all %}
+              <li class="list-group-item list-group-item-light">
+                  {{item}} - ${{item.price}}
+                <small>
+                  <ul>
+                      {% for topping in item.toppings.all %}
+                        <li>{{topping}}</li>
+                      {% endfor %}
+                  </ul>
+                </small>
+              </li>
+            {% endfor %}
+          </ul>
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

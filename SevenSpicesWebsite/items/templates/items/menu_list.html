@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'items/order_list.css' %}">
+
+
+<style media="screen">
+  body{
+    margin-top:0;
+  }
+</style>
+
+<!-- <div class="container">
+  <h1 align='center'>Menu</h1>
+  {% for item in menuitem_list %}
+    <div class="jumbotron">
+      <a href="{% url 'orders:item_detail' pk=item.id %}"><p>{{item.name}}</p></a>
+      <p>{{item.price}}</p>
+    </div>
+  {% endfor %}
+</div> -->
+
+<header>
+  <h1 style="font-weight:700;">Our Menu</h1>
+</header>
+
+<section>
+  <div class="order-list-content-section" style="padding-top:5%;background-image: linear-gradient(to right, rgb(114,184,95,1), rgb(114,184,95,.45));margin:5%;margin-top:0;box-shadow: 0 4px 8px 2px rgba(0, 0, 0, 0.5);">
+    <!-- <div class="row"> -->
+
+      <!-- <div class="col-md-1 item-category-select" style="padding:0;"> -->
+
+        <!-- <ul class="list-group list-group-flush category-select-ul" style="padding-left:15px;padding-right:15px;">
+
+
+          <li class="list-group-item list-group-item-light list-group-item-hover onclick-highlight" style="color:#407496;background-color:white;border-right:1px solid #818182;border-left:1px solid #818182;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2)" onclick="openItems('All'), highlightCategoryText(this)">
+            <i class="category-side-display-element">All</i>
+          </li>
+
+          {% for category in item_categories_side_nav %}
+            <li class="list-group-item list-group-item-hover onclick-highlight" style="color:#aeaeae;border-right:1px solid #818182;border-left:1px solid #818182;box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2)" onclick="openItems('{{category}}'), highlightCategoryText(this)">
+              {{category}}
+            </li>
+          {% endfor %}
+
+          <div class="" style="border-bottom:2px solid #818182;border-radius:16px;">
+
+          </div>
+
+        </ul> -->
+
+      <!-- </div> -->
+
+      <div class="item-select" style="text-align:center;padding:10%;padding-top:0;">
+        {% for category in item_categories %}
+          <div id="{{category}}" class="items" style="margin-bottom:35px;">
+            <div class="category-header-name" style="text-align:left;">
+              <h3 class="category-display" style="color:white;margin-bottom:25px;">{{category}}</h3>
+            </div>
+
+            <div class="row">
+            {% for item in item_list %}
+              {% if item.category == category %}
+                <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
+                  <button id="customize-item-modal" style="text-decoration:none;width:350px;height:285px;" type="button" class="btn btn-link add-item" data-toggle="modal" data-target="#exampleModalCenter" value="{{item.id}} {{item.image.url}}" name="{{item}}">
+                  {% if item.image %}
+                    <div class="polaroid" style="border-radius:8px;">
+                      <img src="{{item.image.url}}" alt="" style="width:100%;height:200px;border-top-right-radius:8px;border-top-left-radius:8px;">
+                      <div class="topleft item-price">${{item.price}}</div>
+                      <div class="polaroid-container" style="text-shadow:1px 2px rgba(0, 0, 0, 0.2);">
+                          {{item}}
+                      </div>
+                    </div>
+                  {% endif %}
+                  </button>
+                </div>
+              {% endif %}
+            {% endfor %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- <div class="col-md-2" style="border-left:1px solid black;">
+      </div> -->
+
+    </div>
+  <!-- </div> -->
+</section>
+
+{% endblock %}
