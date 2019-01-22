@@ -3,3 +3,14 @@ A Django built web app where users can login to a restaurants website and order 
 
 ## Demo
 -Visit http://sevenspices.pythonanywhere.com/
+
+-Create an account and login.
+
+-Click on 'new order' in the navbar.
+
+-Enter any info.
+
+-Press on 'Go'.
+
+-This will take you to the main functionality of the web app where you can order food items.
+
